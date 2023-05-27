@@ -1,0 +1,186 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Tempo de geração: 19-Maio-2023 às 21:31
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 7.4.27
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Banco de dados: `SGBD_PV`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `consultas`
+--
+
+CREATE TABLE `consultas` (
+  `id_consulta` int(6) UNSIGNED NOT NULL,
+  `idPac` varchar(25) DEFAULT NULL,
+  `consultorio` varchar(15) DEFAULT NULL,
+  `idPro` int(6) DEFAULT NULL,
+  `dataC` varchar(10) DEFAULT NULL,
+  `horario` varchar(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `consultas`
+--
+
+INSERT INTO `consultas` (`id_consulta`, `idPac`, `consultorio`, `idPro`, `dataC`, `horario`) VALUES
+(4, '1', '1', 2, '2023-05-19', '18:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pacientes`
+--
+
+CREATE TABLE `pacientes` (
+  `id_paciente` int(11) NOT NULL,
+  `nome` varchar(50) DEFAULT NULL,
+  `cpf` varchar(15) DEFAULT NULL,
+  `idade` varchar(3) DEFAULT NULL,
+  `telefone` varchar(15) NOT NULL,
+  `sexo` varchar(10) DEFAULT NULL,
+  `data_nascimento` varchar(12) DEFAULT NULL,
+  `estado` varchar(10) DEFAULT NULL,
+  `cidade` varchar(15) DEFAULT NULL,
+  `cep` varchar(15) DEFAULT NULL,
+  `rua` varchar(20) DEFAULT NULL,
+  `sus` varchar(20) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `senha` varchar(16) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `pacientes`
+--
+
+INSERT INTO `pacientes` (`id_paciente`, `nome`, `cpf`, `idade`, `telefone`, `sexo`, `data_nascimento`, `estado`, `cidade`, `cep`, `rua`, `sus`, `email`, `senha`) VALUES
+(1, 'Pedro Yan de Meneses Almeida', '99999999999', '17', '85999999999', 'm', '15/01/2006', 'CE', 'Pentecoste', '62640000', 'Rua Exemplo', '999999999999999', 'pedro.almeida@gmail.com', 'pedro123'),
+(2, 'maria lucia', '99999999999', '20', '85999999999', 'f', '10/10/2003', 'CE', 'fortaleza', '99999999', 'Rua Exemplo', '999999999999999', 'maria@gmail.com', 'maria123');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `prontuario`
+--
+
+CREATE TABLE `prontuario` (
+  `id_prontuario` int(11) NOT NULL,
+  `id_paciente` int(11) DEFAULT NULL,
+  `doenca_diagnosticado` varchar(50) NOT NULL,
+  `descricao` varchar(200) NOT NULL,
+  `etnia` varchar(10) DEFAULT NULL,
+  `tipo_sanguineo` varchar(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `prontuario`
+--
+
+INSERT INTO `prontuario` (`id_prontuario`, `id_paciente`, `doenca_diagnosticado`, `descricao`, `etnia`, `tipo_sanguineo`) VALUES
+(1, 1, 'Diabete', 'Possui a fase inicial do diabete', 'branco', 'B'),
+(2, 2, 'nenhuma', 'nada a informar', 'parda', 'O');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(6) UNSIGNED NOT NULL,
+  `user` varchar(16) DEFAULT NULL,
+  `senha` varchar(16) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `user`
+--
+
+INSERT INTO `user` (`id`, `user`, `senha`) VALUES
+(1, 'atendente', 'atendente@h'),
+(2, 'dentista', 'dentista@h'),
+(3, 'enfermeira', 'enfermeira@h'),
+(4, 'psicologo', 'psicologo@h');
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices para tabela `consultas`
+--
+ALTER TABLE `consultas`
+  ADD PRIMARY KEY (`id_consulta`);
+
+--
+-- Índices para tabela `pacientes`
+--
+ALTER TABLE `pacientes`
+  ADD PRIMARY KEY (`id_paciente`);
+
+--
+-- Índices para tabela `prontuario`
+--
+ALTER TABLE `prontuario`
+  ADD PRIMARY KEY (`id_prontuario`),
+  ADD KEY `id_usuario` (`id_paciente`);
+
+--
+-- Índices para tabela `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `consultas`
+--
+ALTER TABLE `consultas`
+  MODIFY `id_consulta` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `pacientes`
+--
+ALTER TABLE `pacientes`
+  MODIFY `id_paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `prontuario`
+--
+ALTER TABLE `prontuario`
+  MODIFY `id_prontuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `prontuario`
+--
+ALTER TABLE `prontuario`
+  ADD CONSTRAINT `prontuario_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
