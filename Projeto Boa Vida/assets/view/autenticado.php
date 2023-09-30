@@ -59,7 +59,7 @@ if(empty($_SESSION['token_atend']) && empty($_SESSION['token_auth'])){
             }
         }
 ?>
-            </select>login.php
+            </select>
             
 
             <label for="data">Data</label>
@@ -67,9 +67,10 @@ if(empty($_SESSION['token_atend']) && empty($_SESSION['token_auth'])){
 
             <label for="horario">Horario</label>
             <input type="time" name="horario" id="horario">
-            login.php
+            
 <?php } ?>
-
+<button type="submit">Registrar</button>
+    </form>
 
         <hr>
 <?php

@@ -2,7 +2,7 @@
         $servidor = "localhost";
         $usuario = "root";
         $senha = "";
-        $banco = "SGBD_PV";
+        $banco = "sgbd_pv";
 
         $conn = mysqli_connect($servidor, $usuario, $senha, $banco);
 ?>

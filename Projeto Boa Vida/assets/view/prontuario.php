@@ -5,24 +5,21 @@ if(empty($_SESSION['paciente'])){
     header("location: ../index.php");
 } else {
 ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 </head>
 <body>
-    <nav>
-        <ul>
-        <il><button><a href="usuarioLogado.php">Voltar</a></button></il>
-        </ul>
-    </nav>
+<a class="btn btn-danger"  href="usuarioLogado.php" role="button">Voltar</a>
 
     <?php
         $sql = "SELECT * FROM prontuario WHERE id_prontuario = '$_SESSION[id_paciente]' ";
         $result = $conn->query($sql);
     ?>
      <main>
-        <table>
+        <table class="table table-striped table-bordered">
             <tr>
                 <th>ID_Prontuário</th>
                 <th>ID_Paciente</th>
